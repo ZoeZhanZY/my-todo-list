@@ -1,0 +1,29 @@
+.todo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* flex: 1; */
+  width: 95%;
+}
+
+@media (min-width: 960px) {
+  .todo-container {
+    width: 860px;
+  }
+}
+
+.todo-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* align-items: center; */
+  flex: 1;
+}
+
+.no-todo-notice {
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+}

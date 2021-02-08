@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import Form from "./components/form/form";
+import Filter from "./components/filter/filter";
 import TodoList from "./components/list/todoList";
 
 function App() {
   const [inputText, setInputText] = useState("");
   const [priority, setPriority] = useState("P0");
   const [todos, setTodos] = useState([]);
-  const [status, setStatus] = useState("all");
+  const [status, setStatus] = useState("All");
   const [filteredTodos, setFilteredTodos] = useState([]);
 
   useEffect(() => {
@@ -19,19 +20,6 @@ function App() {
     saveLocalTodos();
   }, [todos, status]);
 
-  const filterHandler = () => {
-    switch (status) {
-      case "completed":
-        setFilteredTodos(todos.filter((todo) => todo.completed === true));
-        break;
-      case "uncompleted":
-        setFilteredTodos(todos.filter((todo) => todo.completed === false));
-        break;
-      default:
-        setFilteredTodos(todos);
-        break;
-    }
-  };
   // save to local
   const saveLocalTodos = () => {
     localStorage.setItem("todos", JSON.stringify(todos));
@@ -43,6 +31,55 @@ function App() {
       let todoLocal = JSON.parse(localStorage.getItem("todos"));
       setTodos(todoLocal);
     }
+  };
+
+  //for Todo
+  const deleteHandler = (deletedId) => {
+    setTodos(todos.filter((el) => el.id !== deletedId));
+  };
+
+  const completeHandler = (completedId) => {
+    setTodos(
+      todos.map((item) => {
+        if (item.id === completedId) {
+          return { ...item, completed: !item.completed };
+        }
+        return item;
+      })
+    );
+  };
+
+  //for TodoList
+
+  //for form
+  const filterHandler = () => {
+    switch (status) {
+      case "Completed":
+        setFilteredTodos(todos.filter((todo) => todo.completed === true));
+        break;
+      case "Uncompleted":
+        setFilteredTodos(todos.filter((todo) => todo.completed === false));
+        break;
+      default:
+        setFilteredTodos(todos);
+        break;
+    }
+  };
+
+  const statusHandler = (e) => {
+    setStatus(e.target.textContent);
+  };
+
+  const sortHandler = () => {
+    const sortedTodos = [...filteredTodos];
+
+    sortedTodos.sort((a, b) => {
+      const aPriority = parseInt(a.priority[1]);
+      const bPriority = parseInt(b.priority[1]);
+
+      return aPriority - bPriority;
+    });
+    setFilteredTodos(sortedTodos);
   };
 
   return (
@@ -59,6 +96,11 @@ function App() {
         priority={priority}
         setPriority={setPriority}
       />
+      <Filter
+        statusHandler={statusHandler}
+        sortHandler={sortHandler}
+        status={status}
+      />
       <TodoList
         todos={todos}
         setTodos={setTodos}
@@ -67,6 +109,8 @@ function App() {
         setStatus={setStatus}
         priority={priority}
         setPriority={setPriority}
+        deleteHandler={deleteHandler}
+        completeHandler={completeHandler}
       />
     </div>
   );

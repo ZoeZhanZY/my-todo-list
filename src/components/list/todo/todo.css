@@ -1,0 +1,58 @@
+.todo {
+  /* margin: 0.5rem; */
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.877) 40%,
+    #ffffff00 80%
+  );
+  font-size: 1rem;
+  color: #463f3f;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 1s ease;
+  font-family: "Roboto Slab";
+  border-radius: 3px;
+  padding: 5px;
+  display: flex;
+  margin-bottom: 15px;
+
+  box-shadow: 0 2px 2px 0 rgba(95, 94, 94, 0.14),
+    0 3px 1px -2px rgba(95, 94, 94, 0.12), 0 1px 5px 0 rgb(95 94 94 / 20%);
+}
+
+.todo li {
+  flex: 1;
+}
+.todo-item {
+  padding: 0rem 0.5rem;
+}
+
+.trash-btn,
+.btn {
+  background: white;
+  color: rgb(176, 184, 111);
+  border: 1px solid transparent;
+  padding: 0.6rem;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 3px;
+  margin-left: 5px;
+}
+
+.completed {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.completed-btn {
+  border: 1px solid rgb(11, 212, 162);
+}
+.uncompleted-btn {
+  color: rgb(11, 212, 162);
+}
+
+.fa-trash,
+.fa-check {
+  pointer-events: none;
+}

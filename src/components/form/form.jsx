@@ -1,11 +1,11 @@
 import React from "react";
+import "./form.css";
 
 const Form = ({
   inputText,
   setInputText,
   todos,
   setTodos,
-  setStatus,
   setPriority,
   priority,
 }) => {
@@ -25,39 +25,33 @@ const Form = ({
     ]);
     setInputText("");
   };
-  const statusHandler = (e) => {
-    setStatus(e.target.value);
-  };
   const priorityHandler = (e) => {
     setPriority(e.target.value);
     console.log("priority", priority);
   };
+
   return (
-    <form>
+    <form className="form-container">
       <input
         value={inputText}
         onChange={inputTextHandler}
         type="text"
-        className="todo-input"
+        className="form-el text-input"
+        placeholder="Type your todo here"
       />
-      <select className="todo-input" onChange={priorityHandler}>
+      <select className="form-el priority-input" onChange={priorityHandler}>
         <option value="P0">P0</option>
         <option value="P1">P1</option>
         <option value="P2">P2</option>
         <option value="P3">P3</option>
       </select>
-
-      <button onClick={submitTodoHandler} className="todo-button" type="submit">
+      <button
+        onClick={submitTodoHandler}
+        className="form-el form-btn"
+        type="submit"
+      >
         <i className="fas fa-plus-square"></i>
       </button>
-
-      <div className="select">
-        <select onChange={statusHandler} name="todos" className="filter-todo">
-          <option value="all">All</option>
-          <option value="completed">Completed</option>
-          <option value="uncompleted">Uncompleted</option>
-        </select>
-      </div>
     </form>
   );
 };

@@ -1,40 +1,37 @@
 import React from "react";
-import Todo from "./Todo";
+import Todo from "./todo/Todo";
+import "./todolist.css";
 
-const TodoList = ({ todos, setTodos, filteredTodos, setFilteredTodos }) => {
-  const sortHandler = () => {
-    const sortedTodos = [...filteredTodos];
+const TodoList = ({ filteredTodos, completeHandler, deleteHandler }) => {
+  const renderTodoList = () => {
+    return filteredTodos.map((todo) => (
+      <Todo
+        text={todo.text}
+        todo={todo}
+        priority={todo.priority}
+        deleteHandler={deleteHandler}
+        completeHandler={completeHandler}
+      />
+    ));
+  };
 
-    sortedTodos.sort((a, b) => {
-      const aPriority = parseInt(a.priority[1]);
-      const bPriority = parseInt(b.priority[1]);
-
-      return aPriority - bPriority;
-    });
-
-    setFilteredTodos(sortedTodos);
+  const renderContent = () => {
+    console.log(filteredTodos.length);
+    if (filteredTodos.length > 0) {
+      return renderTodoList();
+    } else {
+      return (
+        <div className="no-todo-notice">
+          <p>No todo on the list yet</p>
+        </div>
+      );
+    }
   };
 
   return (
     <>
-      <div>
-        <button onClick={sortHandler}>sort</button>
-      </div>
       <div className="todo-container ">
-        <ul className="todo-list">
-          {filteredTodos.map((todo) => (
-            <Todo
-              setTodos={setTodos}
-              key={todo.id}
-              text={todo.text}
-              todos={todos}
-              todo={todo}
-              filteredTodos={filteredTodos}
-              c
-              priority={todo.priority}
-            />
-          ))}
-        </ul>
+        <ul className="todo-list">{renderContent()}</ul>
       </div>
     </>
   );
