@@ -35,6 +35,7 @@
   flex: 1;
   padding-top: 12px;
   padding-bottom: 12px;
+  -webkit-appearance: none;
 }
 
 .form-btn {
